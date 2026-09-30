@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>跳跳的英语冒险岛 · 五上外研2026</title>
+<style>
+  :root{
+    --sky1:#bdefff; --sky2:#e7fbff; --grass:#a6ea7e; --orange:#ff9f43;
+    --pink:#ff6fa5; --blue:#4d96ff; --coin:#ffd93b; --card:#fff; --ink:#27384a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Comic Sans MS","PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);background:linear-gradient(180deg,var(--sky1),var(--sky2) 36%,var(--grass) 100%);min-height:100vh}
+  header{text-align:center;padding:16px 12px 4px}
+  header h1{margin:0;font-size:26px;color:#fff;text-shadow:2px 2px 0 var(--pink),4px 4px 0 var(--blue)}
+  header p{margin:6px 0 0;font-size:12px;color:#1f3b57}
+  .wrap{max-width:760px;margin:0 auto;padding:10px 12px 80px}
+  .card{background:var(--card);border:4px solid #fff;border-radius:22px;box-shadow:0 10px 0 rgba(0,0,0,.08);padding:14px;margin:12px 0}
+  .grid{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:16px;padding:14px 12px;font-size:16px;font-weight:800;color:#fff;background:var(--blue);box-shadow:0 5px 0 #2f6fd6;width:100%}
+  button:active{transform:translateY(3px);box-shadow:0 2px 0 #2f6fd6}
+  button.orange{background:var(--orange);box-shadow:0 5px 0 #d9772a}
+  button.pink{background:var(--pink);box-shadow: button.green{background0 5px 0 #d44e86}
+ :#7fd14e;box-shadow:0 5px 0 #5fb537;color:#173a12}
+  button.ghost{background:#eef4ff;color:#274b73;box-shadow:0 5px 0 #cdddff}
+  button:disabled{filter:grayscale(.6);opacity:.55;cursor:not-allowed}
+  .topbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#fff;border-radius:18px;padding:10px;box-shadow:0 6px 0 rgba(0,0,0,.06)}
+  .pill{background:#fff7da;border:2px dashed #f4c430;color:#7a5b00;padding:6px 10px;border-radius:999px;font-weight:800;font-size:13px}
+  .pill.blue{background:#e8f0ff;border-color:#9cc0ff;color:#1f4f93}
+  .pill.pink{background:#ffe9f2;border-color:#ffb3d2;color:#a8366f}
+  .pill.orange{background:#ffe9d6;border-color:#ffbf91;color:#8a4b16}
+  h2.section{font-size:19px;margin:4px 0 10px;color:#1d3a5f}
+  .map{display:flex;gap:8px;overflow-x:auto;padding:12px 2px 16px}
+  .island{flex:0 0 104px;height:140px;border-radius:18px;position:relative;background:radial-gradient(circle at 50% 30%,#fff,#cdeeff);border:3px solid #fff;box-shadow:0 8px 0 rgba(0,0,0,.08);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:6px;text-align:center}
+  .island .num{position:absolute;top:6px;left:6px;background:#ffd93b;color:#7a5b00;border-radius:999px;width:24px;height:24px;line-height:24px;font-weight:900;font-size:12px}
+  .island.locked{filter:grayscale(.island.unlocked{background:radial-gradient(circle at85);opacity:.85}
+  . 50% 30%,#fff,#d6ffe0)}
+  .avatar{font-size:30px}.char-name{font-size:11px;font-weight:800;margin-top:4px}.series{font-size:9px;color:#6b7f95}
+  .quiz-box{font-size:17px}
+  .opt{display:block;width:100%;margin:8px 0;background:#f1f7ff;color:#21364c;border:2px solid #cfe0ff;border-radius:14px;padding:12px;font-weight:700;box-shadow:0 4px 0 #cfe0ff}
+  .opt.correct{background:#d8ffea;border-color:#7be0a3;box-shadow:0 4px 0 #7be0a3}
+  .opt.wrong{background:#ffe0e0;border-color:#ff9b9b;box-shadow:0 4px 0 #ff9b9b}
+  .hidden{display:none}.big-emoji{font-size:42px}.tip{font-size:12px;color:#5a718c}
+  .read-timer{font-size:38px;font-weight:900;color:#1f7a4d;text-align:center;margin:8px 0}
+  input[type=text],select{font-family:inherit;font-size:16px;padding:10px;border-radius:12px;border:3px solid #cfe0ff;width:100%;outline:none;margin:6px 0}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .task-btn{text-align:left;background:#fff;color:#22364a;border:3px solid #d7e6ff;border-radius:18px;padding:12px;box-shadow:0 5px 0 #d7e6ff;font-weight:800;width:100%}
+ :block;font-weight .task-btn small{display:600;color:#5d738c;margin-top:4px}
+  .done-tag{color:#1f9d55;font-weight:800}
+  .sentence{border:2px solid #e3ebf5;border-radius:14px;padding:10px 12px;margin:8px 0;background:#fbfdff}
+  .sentence .zh{display:block;font-size:12px;color:#6b7f95;margin-top:4px}
+  .mini{font-size:12px;margin:6px 6px 0 0;padding:8px 10px;border-radius:10px;border:none;background:#e8f0ff;color:#1f4f93;font-weight:800}
+  .mini.pink{background:#ffe9f2;color:#a8366f}
+  .stars{font-size:20px;color:#ff9f43;font-weight:900}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{border-bottom:1px solid #e3ebf5;padding:6px 4px;text-align:left}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#27384a;color:#fff;padding:10px 16px;border-radius:14px;font-weight:800;z-index:99}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🏝️ 跳跳的英语冒险岛</h1>
+  <p>五上外研三起点2026 · 读课文/跟读/翻译 · 满50找妈妈兑现金</p>
+</header>
+
+<div class="wrap">
+
+  <div id="login" class="card" style="text-align:center">
+    <div class="big-emoji">="section">先取个冒险名字🧒🎒</div>
+    <h2 class</h2>
+    <p class="tip">不用密码，存在这台手机/电脑浏览器里。</p>
+    <input id="nick" placeholder="例如：跳跳 / Momo" />
+    <button class="green" onclick="login()">出发 ▶</button>
+  </div>
+
+  <div id="app" class="hidden">
+bar">
+      <div>    <div class="top👋 <b id="hello"></b></div>
+      <div class="pill">💰 <span id="money">0</span> 元</div>
+      <div class="pill orange">已兑 <span id="cashOutTotal">0</span> 元/<span id="cashOutTimes">0</span>次</div>
+      <div class="pill blue">🔥 <span id="streak">0</span> 天</div>
+      <div class="pill pink">🏝️ <span id="unlockedCount">0</span>/21</div>
+      <button class="green" id="cashBtn" onclick="cashOut()" disabled>💵 满50找妈妈</button>
+      <button class="ghost" onclick="momCheck()">🧑‍🏫 妈妈</button>
+      <button class="ghost" onclick="resetAll()">清空</button>
+    </div>
+
+    <div class="card">
+      <h2 class="section">📚 课本阅读室（逐句跟读）</h2>
+      <select id="textbookUnit"></select>
+      <div class="row">
+        <button class="blue" onclick="loadTextbook()">打开课文</button>
+        <button class="pink" onclick="speakAll()">🔊 通读</button>
+      </div>
+      <div id="textbook"></div>
+      <div class="row" style="margin-top:8px">
+        <button class="orange" onclick="readerDone(10)">读10分钟记账</button>
+        <button class="orange" onclick="readerDone(20)">读20分钟</button>
+        <button class="orange" onclick="readerDone(30)">读30分钟</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section">📖 自由阅读打卡</h2>
+      <div class="grid">
+        <button class="orange" onclick="startRead(10)">10分钟</button>
+        <button class="orange" onclick="startRead(20)">20分钟</button>
+        <button class="orange" onclick="startRead(30)">30分钟</button>
+<div id="readingBox"      </div>
+       class="hidden">
+        <div class="read-timer10:00</div>
+        <button" id="readTimer"> class="green" onclick="finishRead()">✅ 读完记账</button>
+        onclick="cancelRead() <button class="ghost"">取消</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section">🗣️ 单词跟读</h2>
+      <select id="readUnit"></select>
+      <div class="row">
+        <button class="blue" onclick="nextWord()">换词</button>
+        <button class="pink" onclick="speakCurrent()">🔊 听</button>
+      </div>
+      <div class="center" style="margin-top:10px;text-align:center">
+        <div class="big-emoji">📝</div>
+        <div style="font-size:30px;font-weight:900;color:#1f3a5f" id="wordText">点“换词”</div>
+        <div class="tip" id="wordZh"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section">🎯 翻译挑战（10题）</h2>
+      <button class="blue" onclick="startQuiz()">开始</button>
+      <div id="quiz" class="hidden quiz-box"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="section">🎮 单元任务卡（18张）</h2>
+      <div class>
+    </div>
+
+   ="grid" id="taskList"></div <div class="card">
+      <h2 class="section">🗺️ 冒险岛（21岛）</h2>
+      <div class="map" id="map"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="section">📊 周报</h2>
+      <div class="grid">
+        <div class="pill blue">本周 <span id="weekMin">0</span> 分</div>
+        <div class="pill">累计 <span id="totalMin">0</span> 分</div>
+        <div class="pill">Unit <span id="unitDone">0</span>/6</div>
+        <div class="pill pink">任务 <span id="taskDone">0</span>/18</div>
+      </div>
+      <table id="weekTable" style="margin-top:10px"></table>
+    </div>
+  </div>
+</div>
+
+<script>
+const UNITS=[
+  {u:"Unit 1",title:"What's on your plate?"},
+  {u:"Unit 2",title:"A green life"},
+  {u:"Unit 3",title:"Happy together"},
+  {u:"Unit 4",title:"A better me"},
+  {u:"Unit 5",title:"Look into the future"},
+  { the festivals"}
+];
+
+const[["plate","盘"],[" WORDS={
+  "Unit 1":u:"Unit 6",title:"Enjoyfruit","水果"],["candy","糖果"],["chocolate","巧克力"],["cola","可乐"],["chips","薯条"],["soup","汤"],["potato","土豆"],["meat","肉"],["healthy"],["biscuit","饼干"],["","健康的"],["bread","面包oats","燕麦"],["nut","坚果"],["sugar","糖"],["snack","零食"]],
+  "Unit 2":[["waste","浪费"],["plastic","塑料"],["throw","扔"],["recycle","回收"],["metal","金属"],["newspaper","报纸"],["land","陆地"],["shop","商店"],["useful","有用的"]],
+  "Unit 3":[["friendship","友谊"],["unhappy","不开心"],["both","两个都"],["funny","有趣"],["musical","音乐"],["rabbit","兔子"],["similar","相似"],["plan","计划"]],
+  "Unit 4":[["goal","目标"],["exercise","锻炼"],["survey","调查"],["test","测验"],["complete","完成"],["sentence","句子"],["late","迟到"],["before","在…之前"]未来"],["drive","驾驶],
+  "Unit 5":[["future",""],["space","太空"],["d","玻璃"],["celebrate","anger","危险"],["glass庆祝"],["hundred","百"],["bright","明亮"]],
+  "Unit 6":[["festival","节日"],["moon cake","月饼"],["Mid-Autumn Festival","中秋"],["Dragon Boat Festival","端午"],["Lantern Festival","元宵"],["Christmas","圣诞"],["Spring Festival","春节"],["dumpling","饺子"],["present","礼物"]]
+};
+
+const TEXTS={
+  "Unit 1":[
+    ["Wow! There is so much food.","哇！好多食物。"],
+    ["What do you want to eat?","你想吃什么？"],
+    ["I want noodles in soup.","我要汤面。"],
+    ["Don't take too much.","别拿太多。"],
+    ["You should eat vegetables.","你应该吃蔬菜。"],
+    ["Those are chips, not potatoes!","那是薯片不是土豆！"],
+    ["Eat slowly and stay healthy.","慢慢吃，保持健康。"]
+  ],
+  "Unit 2":[
+    ["Don't throw it away.","别扔掉它。"],
+    ["I can reuse this box.","我能再利用这个盒子。"],
+    ["Milk boxes have paper and plastic.","牛奶盒有纸和塑料。"],
+    ["Wash it and make it flat.","洗一洗，压平。"],
+    ["Put it into the recycling box.","放进回收箱。"],
+    ["Let's start now for a green world.","为了绿色世界，现在开始。"]
+  ],
+  "Unit 3":[
+    ["We are good friends.","我们是好朋友。"],
+    ["We go to school together.","我们一起上学。"],
+    ["A good friend helps you.","好朋友帮助你。"],
+    ["Happy together, learn together.","一起开心，一起学习。"]
+  ],
+  "Unit 4":[
+    ["My goal is to be better.","我的目标是变得更好。"],
+    ["I want to exercise every day.","我想每天锻炼。"],
+    ["I don't want to be late.","我不想迟到。"],
+    ["A better me starts today.","更好的我从今天开始。"]
+  ],
+  "Unit 5":[
+    ["What will the future be like?","未来会怎样？"],
+    ["I will drive a green car.","我会开绿色汽车。"],
+    ["We will travel into space.","我们会去太空。"],
+    ["The future is bright.","未来是光明的。"]
+  ],
+  "Unit 6":[
+    ["My favourite festival is Spring Festival.","我最喜欢春节。"],
+    ["We eat dumplings.","我们吃饺子。"],
+    ["At Mid-Autumn we eat moon cakes.","中秋吃月饼。"],
+    ["Festivals bring us together.","节日让我们相聚。"]
+  ]
+};
+
+const HEROES=[
+  {name:"熊大",emoji:"🐻",series:"熊出没"},
+  {name:"熊二",emoji:"🐻‍❄️",series:"熊出没"},
+  {name:"光头强",emoji:"🪓",series:"熊出没"},
+  {name:"小叮当",emoji:"🤖",series:"哆啦A梦"},
+  {name:"大雄",emoji:"😴",series:"哆啦A梦"},
+  {name:"静香",emoji:"🛁",series:"哆啦A梦"},
+  {name:"海绵宝宝",emoji:"🧽",series:"海绵宝宝"},
+  {name:"派大星",emoji:"⭐",series:"海绵宝宝"},
+  {name:"章鱼哥",emoji:"🐙",series:"海绵宝宝"},
+  {name:"劳埃德",emoji:"🐉",series:"幻影忍者"},
+  {name:"凯",emoji:"🔥",series:"幻影忍者"},
+  {name:"杰",emoji:"⚡",series:"幻影忍者"},
+  {name:"赵琳",emoji:"🎒",series:"熊出没"},
+  {name:"天才威",emoji:"🧪",series:"熊出没"},
+  {name:"小夫",emoji:"🎩",series:"哆啦A梦"},
+  {name:"胖虎",emoji:"🥊",series:"哆啦A梦"},
+  {name:"痞老板",emoji:"👁️",series:"海绵宝宝"},
+  {name:"珊迪",emoji:"🐿️",series:"海绵宝宝"}
+];
+const EXTRA=[{name:"跳跳船长",emoji:"🧒",series:"出发岛"},
+  {name:"妈妈岛",emoji:"🧑",series:"家长岛"},
+  {name:"毕业岛",emoji:"🎓",series:"通关岛"}];
+
+let TASKS=[];
+UNITS.forEach((u,i)=>["跟读任务","翻译任务","阅读任务"].forEach(t=>TASKS.push({id:i+"-"+t,unit:u.u,title:t})));
+
+const KEY="tt_island_phone_v1";
+let S=load();
+function JSON.parse(local load(){try{returnStorage.getItem(KEY))||null}catch(e){return null}}
+function save(){localStorage.setItem(KEY,JSON.stringify(S))}
+
+function login(){
+  const n=document.getElementById("nick").value.trim();
+  if(!n){toast("先写名字");return;}
+  S={nick:n,money:0,totalMin:0,streak:0,lastDay:null,days:{},tasks:{},units:{},quizDone:0,quizRight:0,cashOutTimes:0,cashOutTotal:0};
+function enter(){
+  save();enter();
+}
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("app").classList.getElementById("hello.remove("hidden");
+  document").textContent=S.nick;
+  fillSelect("textbookUnit");fillSelect("readUnit");
+  renderTasks();renderAll();
+}
+function resetAll(){if(!confirm("清空？"))return;localStorage.removeItem(KEY);location.reload();}
+function momCheck(){alert("跳跳："+S.totalMin+"分，连续"+S.streak+"天，Unit "+Object.keys(S.units).length+"/6，任务"+Object.keys(S.tasks).length+"/18，余额"+S.money+"，已兑"+S.cashOutTotal);}
+
+function fillSelect(id){
+  const sel=document.getElementById(id);sel.innerHTML="";
+  UNITS.forEach(u=>{const o=document.createElement("option");o.value=u.u;o.textContent=u.u+"："+u.title;sel.appendChild(o)});
+}
+function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),1600);}
+function speak(t){ifreturn;const u=new(!window.speechSynthesis) SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.9;speechSynthesis.cancel();speechSynthesis.speak(u);}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a;}
+function todayStr(d=new Date()){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
+function addDays(ds,n){const d=new Date(ds+"T00:00:00");d.setDate(d.getDate()+n);return todayStr(d);}
+
+/* 课本 */
+function loadTextdocument.getElementById("book(){
+  const u=textbookUnit").value;
+  const box=document.getElementById("textbook");box.innerHTML="";
+  TEXTS[u].forEach(([en,zh],idx)=>{
+    const d=document.createElement("div");d.className="sentence";
+    d.innerHTML=en+'<span class="zh">'+zh+'</span>'+
+      '<button class="mini" onclick="event.stopPropagation();speak(\''+en.replace(/'/g,"\\'")+'\')">🔊 听</button>'+
+      '<button class="mini pink" onclick="event.stopPropagation();startDictate(\''+en.replace(/'/g,"\\'")+'\',this)">🎤 跟读</button>'+
+      '<div class="stars" id="star'+idx+'"></div>';
+    d.onclick=()=>speak(en);
+    box.appendChild(d);
+  });
+}
+function speakAll(){
+  const u=document.getElementById("textbookUnit").value;const lines=TEXTS[u];let i=0;
+  (function next(){if(i>=lines.length)return;speak(lines[i][0]);i++;setTimeout(next,1700);})();
+}
+function readerDone(min){recordRead(min);toast("课本读"+min+"分，+ "+Math.floor(min/10)+" 元");}
+
+/* 麦克风跟读（前端识别） */
+function startDictate(en,btn){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){toast("这浏览器不支持跟读识别，用安卓Chrome");return;}
+  const rec=new SR();rec.lang="en-US";rec.interimResults=false;rec.maxAlternatives=1;
+  toast("🎤 说："+en);
+  rec.onresult=e=>{
+    const said=e.results[0][0].transcript.toLowerCase();
+    const target=en.toLowerCase().replace(/[^a-z0-9 ]/g,"");
+    const tWords=target.split(" "),sWords=said.replace(/[^a-z0-9 ]/g,"").split(" ");
+    let hit=0;tWords.forEach(w=>{if(sWords.includes(w))hit++;});
+    const rate=tWords.length?hit/tWords.length:0;
+    let stars=rate>=0.8?"⭐⭐⭐":rate>=0.5?"⭐⭐":"⭐";
+    btn.parentElement.querySelector(".stars").textContent=stars+"（对"+hit+"/"+tWords.length+"词）";
+    if(rate>=0.5)toast("读得不错 "+stars);else toast("再听原声跟一次～");
+  };
+  rec.onerror=()=>toast("没听清，再点一次🎤");
+  rec.start();
+}
+
+/* 自由阅读 */
+let rt=null,rl=0,rtot=0;
+function startRead(min){if(rt){toast("先读完当前");return;}rtot=min;rl=min*60;document.getElementById("readingBox").classList.remove("hidden");tick();rt=setInterval(tick,1000);}
+function tick(){const m=Math.floor(rl/60),s=rl%60;document.getElementById("readTimer").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");if(rl<=0)finishRead();else rl--;}
+function cancelRead(){clearInterval(rt);rt=null;document.getElementById("readingBox").classList.add("hidden");}
+function finishRead(){clearInterval(rt);rt=null;recordRead(rtot);document.getElementById("readingBox").classList.add("hidden");}
+function recordRead(min){
+  const day=todayStr();S.days[day]=(S.days[day]||0)+min;S.totalMin+=min;S.money+=Math.floor(min/10);
+  if(S.lastDay!==day){S.streak=(S.lastDay===addDays(day,-1))?S.streak+1:1;S.lastDay=day;}
+  save();renderAll();
+}
+
+/* 单词 */
+let cur=null;
+function nextWord(){const u=document.getElementById("readUnit").value;const w=WORDS[u][Math.floor(Math.random()*WORDS[u].length)];cur=w;document.getElementById("wordText").textContent=w[0];document.getElementById("wordZh").textContent="意思："+w[1];speak(w[0]);}
+function speakCurrent(){if(cur)speak(cur[0]);}
+
+/* 翻译 */
+let ql=[],qi=0,qr=0;
+function startQuiz(){
+  let pool=[];UNITS.forEach(u=>WORDS[u.u].forEach(w=>pool.push(w)));shuffle(pool);
+  let en=pool.slice(0,5),zh=pool.slice(5,10);ql=[];
+  en.forEach(w=>ql.push({t:"英译中",q:w[0],a:w[1],o:shuffle([w[1],...shuffle(pool.map(x=>x[1]).filter(x=>x!==w[1])).slice(0,3)])}));
+  zh.forEach(w=>ql.push({t:"中译英",q:w[1],a:w[0],o:shuffle([w[0],...shuffle(pool.map(x=>x[0]).filter(x=>x!==w[0])).slice(0,3)])}));
+  shuffle(ql);qi=0;qr=0;document.getElementById("quiz").classList.remove("hidden");rq();
+}
+function rq(){
+  const box=document.getElementById("quiz");
+  if(qi>=ql.length){S.quizDone++;S.quizRight+=qr;save();box.innerHTML='<div class="big-emoji">🎉</div><h3>对 '+qr+'/10</h3><button class="green" onclick="startQuiz()">再做</button>';renderAll();return;}
+  const it=ql[qi];box.innerHTML='<div class="pill blue">第 '+(qi+1)+'/10 · style="font-size:22 '+it.t+'</div><divpx;font-weight:900;margin:8px 0">'+it.q+'</div><div id="oc"></div>';
+.getElementById("oc  const oc=document");it.o.forEach(op=>{const b=document.createElement("button");b.className="opt";b.textContent=op.children].forEach;b.onclick=()=>{[...oc(x=>x.disabled=true);if(op===it.a){b.classList.add("correct");qr++;toast("对");}else{b.classList.add("wrong.a);}setTimeout(()");toast("正确："+it=>{qi++;rq();},800);};oc.appendChild(b);});
+}
+
+/* 任务 */
+function renderTasks(){const box=document.getElementById("taskList");box.innerHTML="";TASKS.forEach(t=>{const done=!!S.tasks[t.id];const b=document.createElement("button");b.className="task-btn";b.innerHTML=t.unit+" · "+t.title+'<small>'+(done?'<span class="done-tag">✅ 伙伴上岛</span>':'点我做任务');b.disabled=done;b.onclick=()=>doTask(t);box.appendChild(b);});}
+function doTask(t){
+  let m="";
+  if(t.title==="跟读任务"){nextWord();m="跟读5个词";}
+  else if(t.title==="翻译任务"){startQuiz();m="做10题翻译";}
+  else{loadTextbook();m="课本跟读10分钟以上";}
+  if(!confirm(t.unit+" "+t.title+"\n"+m+"\n做完点确定"))return;
+  S.tasks[t.id]=true;
+  const three=TASKS.filter(x=>x.unit===t.unit).map(x=>S.tasks[x.id]);
+  if(three.every(Boolean)&&!S.units[t.unit]){S.units[t.unit]=true;S.money+=10;toast("Unit完成 +10元");}
+  else toast("伙伴上岛！");
+  save();renderTasks();renderAll();
+}
+
+/* 兑钱 */
+function cashOut(){if(S.money<50){toast("还差一点");return;}if(!confirm("有"+S.money+"元，找妈妈兑50？"))return;S.money-=50;S.cashOutTimes++;S.cashOutTotal+=50;save();toast("去跟妈妈领50元～");renderAll();}
+
+/* 渲染 */
+function renderAll(){
+  document.getElementById("money").textContent=S.money;
+  document.getElementById("streak").textContent=S.streak;
+  document.getElementById("cashOutTotal").textContent=S.cashOut("cashOutTimes").textContent=S.cashOutTotal;
+  document.getElementByIdTimes;
+  const dt=Object.keys(S.tasks).length;
+  document.getElementById("taskDone").textContent=dt;
+  document.getElementById("unitDone").textContent=Object.keys(S.units).length;
+  document.getElementById("unlockedCount").textContent=Math.min(21,dt+3);
+  const btn=document.getElementById("cashBtn");
+  if(S.money>=50){btn.disabled=false;btn.textContent="💵 找妈妈兑50（有"+S.money+"）";}else{btn.disabled=true;btn.textContent="💵 满50可兑（有"+S.money+"）";}
+  const all=[...HEROES.map((h,i)=>({...h,unlocked:i<dt})),EXTRA[0],{...EXTRA[1],unlocked:dt>=9},{...EXTRA[2],unlocked:dt>=18}];
+  all[18].unlocked=true;
+  const map=document.getElementById";
+  all.forEach((c("map");map.innerHTML=",i)=>{const d=document");d.className="is.createElement("divland "+(c.unlocked?"unlocked":"locked");d.innerHTML='<div class="num">'+(i+1)+'</div><div class="avatar">'+(c.unlocked?c.emoji:"🌫️")+'</div><div class="char-name">'+(c.unlocked?c.name:"？？？")+'</div><div class="series">'解锁")+'</div>';map+(c.unlocked?c.series:"未.appendChild(d);});
+  const now=new Date();const dow=(now.getDay()+6)%7;const mon=new Date(now);mon.setDate(now.getDate()-dow);
+  let wm=0,html="<tr><th>日期</th><th>周</th><th>分</th><th>钱</th></tr>";
+  for(let i=0;i<7;i++){const d=new Date(m+i);const ds=todayStr(don);d.setDate(mon.getDate());const min=S.days[ds]||0;wm+=min;html+="<tr><td>"+ds+"</td><td>周"+"一二三四五六日"[i]+"</td><td>"+min+"</td><td>+"+Math.floor(min/10)+"</td></tr>";}
+  document.getElementById(";
+  document.getElementByIdweekTable").innerHTML=html("weekMin").textContent=wm;
+  document.getElementById("totalMin").textContent=S.totalMin;
+}
+if(S&&S.nick)enter();
+</script>
+</body>
+</html>
